@@ -1,0 +1,32 @@
+we want to design photoshop application
+and had many menus at left top corner such as selection - brush- erase
+
+and had feature of mouseUp and mouseDown for each menu
+
+--------------------
+simplest solution is in canva class use different functionality base on selected menu
+
+this solution is cause code dirty and decrease readability
+and need use another if else statement base on new menu want be added.
+we better to use polymorphism to allow object behave differently when its state change
+
+with new implementation we dont have long list of decision-making statement.
+and application is more maintainable and extensible.
+
+
+this pattern has lot of attention to (open close) second rule of solid principle
+means it has open for extension and close for modification
+with previous solution we only add modification in canvas class
+but in new implementation we dont change code. only extend code and create new concrete class for Tool interface.
+
+this cause we support new feature without change in existing project
+
+2 note about state design pattern
+
+1. if you have few decision-making base on state in single method is wisely to use if else or switch statement . if we use two or more than place we use those decision making is better to use state design pattern
+2. we use state pattern because they probably state grows in photoShop example in feature we maybe have another menu. but if we have fix decision-making is not properly to use this pattern
+
+in abuse example
+
+at first we have decision making at 1 single method
+and we have only 2 state. dont need to be change code in future for extra feature
