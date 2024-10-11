@@ -43,79 +43,95 @@ Strategy: Does not manage state; it simply defines different ways to perform a t
 State: Manages transitions between different states, often with rules for when transitions occur.
 
 
-example of strategy pattern 
- > interface PaymentStrategy { <br/>
- &nbsp;&nbsp;&nbsp;void pay(int amount); <br/>
- }
+### <i>example of strategy pattern</i> 
 
-// Concrete Strategies
+    interface PaymentStrategy { 
+        void pay(int amount); 
+    }
 
-> class CreditCardPayment implements PaymentStrategy { <br/>
-&nbsp;&nbsp;&nbsp;public void pay(int amount) { <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Paid " + amount + " using Credit Card.");
- <br/> 
-> &nbsp;&nbsp;&nbsp;&nbsp;} <br/>
-}
+Concrete Strategies <br><br/>
+creditCardPayment
 
-> class PayPalPayment implements PaymentStrategy { <br/>
-&nbsp;&nbsp;&nbsp;public void pay(int amount) { <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Paid " + amount + " using PayPal."); <br/> &nbsp;&nbsp;&nbsp;
-} <br/>
-}
+     class CreditCardPayment implements PaymentStrategy { 
+        
+        public void pay(int amount) { 
+            System.out.println("Paid " + amount + " using Credit Card.");
+        }
+    }
+
+ payPalPayment
+
+    class PayPalPayment implements PaymentStrategy {
+        public void pay(int amount) { 
+            System.out.println("Paid " + amount + " using PayPal.");
+        } 
+    }
 
 // Context
-> class ShoppingCart { <br/>
-&nbsp;&nbsp;&nbsp;private PaymentStrategy paymentStrategy; <br/><br/>
-&nbsp;&nbsp;&nbsp;public void setPaymentStrategy(PaymentStrategy paymentStrategy) { <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.paymentStrategy = paymentStrategy; <br/> &nbsp;&nbsp;&nbsp;
-    } <br/>
-&nbsp;&nbsp;&nbsp;   public void checkout(int amount) { <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paymentStrategy.pay(amount); <br/> &nbsp;&nbsp;
-    } <br/>
-}
+
+     class ShoppingCart {
+        private PaymentStrategy paymentStrategy;
+        public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+            this.paymentStrategy = paymentStrategy;
+        }
+        public void checkout(int amount) {
+            paymentStrategy.pay(amount);
+        }    
+    }
 
 // Usage
->public class Main {
-public static void main(String[] args) { <br/> <br/>
-&nbsp;&nbsp;&nbsp;ShoppingCart cart = new ShoppingCart(); <br/>
-&nbsp;&nbsp;        // Pay with credit card <br/>
-&nbsp;&nbsp;       cart.setPaymentStrategy(new CreditCardPayment()); <br/>
-&nbsp;&nbsp;        cart.checkout(100); <br/><br/>
-&nbsp;&nbsp;       // Change payment method to PayPal <br/>
-&nbsp;&nbsp;        cart.setPaymentStrategy(new PayPalPayment()); <br/>
-&nbsp;&nbsp;       cart.checkout(150); <br/> &nbsp;&nbsp;
-    } <br/>
-}
 
-example of state pattern
+    public class Main {
+        public static void main(String[] args) {
 
-> interface TrafficLightState { <br/>
-&nbsp;&nbsp;&nbsp;void change(TrafficLight context); <br/>
-}
+            ShoppingCart cart = new ShoppingCart();
+            // Pay with credit card 
+             cart.setPaymentStrategy(new CreditCardPayment());
+
+            cart.checkout(100); 
+            // Change payment method to PayPal
+            cart.setPaymentStrategy(new PayPalPayment());
+            cart.checkout(150);
+        } 
+    }
+
+### <i>example of state pattern</i>
+
+    interface TrafficLightState {
+        void change(TrafficLight context);
+    }
 
 // Concrete States
-> class RedState implements TrafficLightState { <br/>
-&nbsp;&nbsp;&nbsp;public void change(TrafficLight context) { <br/><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Traffic light is Red. Cars must stop."); <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.setState(new GreenState()); <br/> &nbsp;&nbsp;
-} <br/>
-}
 
->class GreenState implements TrafficLightState { <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;public void change(TrafficLight context) { <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Traffic light is Green. Cars can go."); <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.setState(new YellowState()); <br/> &nbsp;&nbsp;
-} <br/>
-}
+redState
 
->class YellowState implements TrafficLightState { <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;public void change(TrafficLight context) { <br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Traffic light is Yellow. Cars should prepare to stop.");
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.setState(new RedState()); <br/> &nbsp;&nbsp;&nbsp;&nbsp;
-} <br/>
-}
+    class RedState implements TrafficLightState {
 
+        public void change(TrafficLight context) {
+            System.out.println("Traffic light is Red. Cars must stop.");
+            context.setState(new GreenState());
+        } 
+    }
 
+greenState
+
+    class GreenState implements TrafficLightState {
+
+        public void change(TrafficLight context) { 
+            System.out.println("Traffic light is Green. Cars can go.");
+            context.setState(new YellowState());
+        } 
+    }
+
+yellowState
+
+    class YellowState implements TrafficLightState {
+
+        public void change(TrafficLight context) { 
+            System.out.println("Traffic light is Yellow. Cars should prepare to stop.");
+            context.setState(new RedState());
+        } 
+    }
 
 // Context           
 
@@ -141,8 +157,9 @@ example of state pattern
     public class Main {
 
        public static void main(String[] args) {
+
           TrafficLight trafficLight = new TrafficLight();
-       // Simulate traffic light changes
+          // Simulate traffic light changes
         
           for (int i = 0; i < 6; i++) {
              trafficLight.change();
