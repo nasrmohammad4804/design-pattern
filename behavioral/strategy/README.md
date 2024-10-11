@@ -24,6 +24,6 @@ but in state pattern . we do different work base on state changed.
 
 
 ## very important note
-<p style="background-color: #ffebcd;border-radius: 5px">
-"In the Strategy pattern, we perform the same task in different ways based on the client's decision, such as using different sorting or hashing algorithms. In contrast, the State pattern allows us to perform different behaviors based on changes in the object's state."
-</p>
+> <em> <strong>"In the Strategy pattern, we perform the same task in different ways based on the client's decision, such as using different sorting or hashing algorithms. In contrast, the State pattern allows us to perform different behaviors based on changes in the object's state." </strong></em>
+
+![img.png](img.png)
